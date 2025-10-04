@@ -1,0 +1,16 @@
+{
+    "name": "DemoApp",
+    "short_name": "DemoApp",
+    "description": "A minimal Progressive Web App Demo.",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#333333",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "1080x1080",
+            "type": "image/png"
+        }
+    ]
+}
