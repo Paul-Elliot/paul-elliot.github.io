@@ -1,5 +1,5 @@
 // Define a name for the cache (change the version number to force a refresh)
-const CACHE_NAME = 'basic-pwa-cache-v3';
+const CACHE_NAME = 'basic-pwa-cache-v4';
 
 // List of files to cache (your 'app shell')
 const urlsToCache = [
@@ -60,3 +60,4 @@ self.addEventListener('activate', event => {
     );
 
 });
+
