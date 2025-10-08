@@ -1,5 +1,5 @@
 // Define a name for the cache (change the version number to force a refresh)
-const CACHE_NAME = 'basic-pwa-cache-v5';
+const CACHE_NAME = 'basic-pwa-cache-v6';
 
 // List of files to cache (your 'app shell')
 const urlsToCache = [
@@ -85,9 +85,9 @@ const hasDismissedPrompt = () => {
     const dismissedTime = localStorage.getItem('ios-install-prompt-dismissed');
     if (!dismissedTime) return false;
     
-    // Example: Only show the prompt once every 7 days (604,800,000 milliseconds)
-    const sevenDays = 7 * 24 * 60 * 60 * 1000;
-    return (Date.now() - parseInt(dismissedTime, 10)) < sevenDays;
+    // Example: Only show the prompt once every 1min
+    const oneMin = 1 * 60 * 1000;
+    return (Date.now() - parseInt(dismissedTime, 10)) < oneMin;
 };
 
 // === 1. Installation Logic for Chromium-based Browsers ===
@@ -159,5 +159,6 @@ window.addEventListener('appinstalled', () => {
     if (iosPopup) iosPopup.style.display = 'none';
     console.log('PWA successfully installed. Thanks!');
 });
+
 
 
