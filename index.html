@@ -81,6 +81,20 @@
     </style>
 </head>
 <body>
+    <button id="custom-install-button" hidden>
+    Install Our App! 📲
+    </button>
+
+    <div id="ios-install-popup" style="display: none; border: 1px solid #ccc; padding: 15px; background: #f9f9f9; max-width: 300px; margin: 20px auto;">
+        <h3>Add App to Home Screen (iOS)</h3>
+        <p>For the best experience, install our app using your browser menu:</p>
+        <ol style="padding-left: 20px;">
+            <li>Tap the **Share** button $\text{\includegraphics[width=12pt]{iOS-Share-Icon}}$ at the bottom of the screen.</li>
+            <li>Scroll down and tap **Add to Home Screen**.</li>
+        </ol>
+        <button id="close-ios-prompt" style="margin-top: 10px;">Close Instructions</button>
+    </div>
+    
 
     <div class="preview-container">
         <iframe 
@@ -101,3 +115,4 @@
 
 </body>
 </html>
+
