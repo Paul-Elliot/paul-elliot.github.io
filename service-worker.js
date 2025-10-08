@@ -1,5 +1,5 @@
 // Define a name for the cache (change the version number to force a refresh)
-const CACHE_NAME = 'basic-pwa-cache-v10';
+const CACHE_NAME = 'basic-pwa-cache-v13';
 
 // List of files to cache (your 'app shell')
 const urlsToCache = [
@@ -45,7 +45,7 @@ self.addEventListener('fetch', event => {
 self.addEventListener('activate', event => {
     console.log('[Service Worker] Activate Event - Cleaning old caches');
     const cacheWhitelist = [CACHE_NAME];
-    
+
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
@@ -58,46 +58,4 @@ self.addEventListener('activate', event => {
             );
         })
     );
-
 });
-
-
-}
-
-
-// === 2. Installation Logic for iOS (Manual Instructions) ===
-
-function showIOSInstallPrompt() {
-    if (iosPopup) {
-        // Display the instructional popup
-        iosPopup.style.display = 'block';
-
-        if (closeIosButton) {
-            closeIosButton.addEventListener('click', () => {
-                // Hide the popup and record the dismissal time
-                iosPopup.style.display = 'none';
-                localStorage.setItem('ios-install-prompt-dismissed', Date.now().toString());
-            });
-        }
-    }
-}
-
-// === 3. Check and Show the Appropriate Prompt on Page Load ===
-
-if (isIOS() && !isRunningStandalone() && !hasDismissedPrompt()) {
-    // If on iOS, not installed, and not recently dismissed, show instructions
-    showIOSInstallPrompt();
-} 
-// The Android/Desktop prompt is handled automatically by the beforeinstallprompt listener
-
-
-// === 4. Global App Installed Handler ===
-
-window.addEventListener('appinstalled', () => {
-    // Hide all related install prompts/buttons when the PWA is successfully installed
-    if (installButton) installButton.setAttribute('hidden', '');
-    if (iosPopup) iosPopup.style.display = 'none';
-    console.log('PWA successfully installed. Thanks!');
-});
-
-
