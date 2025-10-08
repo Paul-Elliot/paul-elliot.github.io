@@ -1,5 +1,5 @@
 // Define a name for the cache (change the version number to force a refresh)
-const CACHE_NAME = 'basic-pwa-cache-v4';
+const CACHE_NAME = 'basic-pwa-cache-v5';
 
 // List of files to cache (your 'app shell')
 const urlsToCache = [
@@ -159,4 +159,5 @@ window.addEventListener('appinstalled', () => {
     if (iosPopup) iosPopup.style.display = 'none';
     console.log('PWA successfully installed. Thanks!');
 });
+
 
