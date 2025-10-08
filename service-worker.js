@@ -61,3 +61,102 @@ self.addEventListener('activate', event => {
 
 });
 
+let deferredPrompt;
+const installButton = document.querySelector('#custom-install-button');
+const iosPopup = document.querySelector('#ios-install-popup');
+const closeIosButton = document.querySelector('#close-ios-prompt');
+
+// === Helper Functions for Device Detection ===
+
+const isIOS = () => {
+    // Check for iPhone, iPad, or iPod in the user agent
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+};
+
+const isRunningStandalone = () => {
+    // Check if the app is already installed and running in PWA mode
+    return (window.matchMedia('(display-mode: standalone)').matches) || 
+           (window.navigator.standalone); // window.navigator.standalone is for older iOS
+};
+
+const hasDismissedPrompt = () => {
+    // Check if the user has previously dismissed the iOS prompt
+    const dismissedTime = localStorage.getItem('ios-install-prompt-dismissed');
+    if (!dismissedTime) return false;
+    
+    // Example: Only show the prompt once every 7 days (604,800,000 milliseconds)
+    const sevenDays = 7 * 24 * 60 * 60 * 1000;
+    return (Date.now() - parseInt(dismissedTime, 10)) < sevenDays;
+};
+
+// === 1. Installation Logic for Chromium-based Browsers ===
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    // Only proceed if not on iOS
+    if (isIOS()) return; 
+
+    // Prevent the default browser UI
+    event.preventDefault(); 
+    
+    // Store the event and reveal the custom button
+    deferredPrompt = event;
+    if (installButton) {
+        installButton.removeAttribute('hidden');
+    }
+});
+
+if (installButton) {
+    installButton.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            // Hide the custom button before showing the native prompt
+            installButton.setAttribute('hidden', '');
+            
+            // Trigger the native installation prompt
+            deferredPrompt.prompt(); 
+
+            // Wait for user choice (accepted or dismissed)
+            await deferredPrompt.userChoice;
+
+            // Reset the prompt reference
+            deferredPrompt = null; 
+        }
+    });
+}
+
+
+// === 2. Installation Logic for iOS (Manual Instructions) ===
+
+function showIOSInstallPrompt() {
+    if (iosPopup) {
+        // Display the instructional popup
+        iosPopup.style.display = 'block';
+
+        if (closeIosButton) {
+            closeIosButton.addEventListener('click', () => {
+                // Hide the popup and record the dismissal time
+                iosPopup.style.display = 'none';
+                localStorage.setItem('ios-install-prompt-dismissed', Date.now().toString());
+            });
+        }
+    }
+}
+
+// === 3. Check and Show the Appropriate Prompt on Page Load ===
+
+if (isIOS() && !isRunningStandalone() && !hasDismissedPrompt()) {
+    // If on iOS, not installed, and not recently dismissed, show instructions
+    showIOSInstallPrompt();
+} 
+// The Android/Desktop prompt is handled automatically by the beforeinstallprompt listener
+
+
+// === 4. Global App Installed Handler ===
+
+window.addEventListener('appinstalled', () => {
+    // Hide all related install prompts/buttons when the PWA is successfully installed
+    if (installButton) installButton.setAttribute('hidden', '');
+    if (iosPopup) iosPopup.style.display = 'none';
+    console.log('PWA successfully installed. Thanks!');
+});
+
