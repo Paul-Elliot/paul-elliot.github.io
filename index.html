@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -9,198 +9,95 @@
     <link rel="manifest" href="/manifest.json">
 
     <style>
-
+        /* CSS pour le Cadre de Prévisualisation */
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 40px;
-            background-color: #f0f2f5;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-        h1 {
-            color: #24292e;
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 3px solid #0366d6;
-            display: inline-block;
-            padding-bottom: 10px;
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-            width: fit-content;
-        }
-
-        .status {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-        }
-
-        /* Grid Layout for Cards */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        /* Card Styling */
-        .project-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             display: flex;
-            flex-direction: column;
-            height: 100%; /* Ensures all cards are the same height */
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Image/Visual Area */
-        .project-image {
-            height: 180px;
-            background-color: #e8ecf1;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 1.1em;
-            color: #6a737d;
-            font-style: italic;
-            text-align: center;
-        }
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* Content Area */
-        .project-content {
-            padding: 20px;
-            flex-grow: 1; /* Allows content area to fill vertical space */
-            display: flex;
-            flex-direction: column;
-        }
-        .project-content h2 {
-            font-size: 1.4em;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #0366d6;
-        }
-        .language-tag {
-            font-size: 0.8em;
-            color: #6a737d;
-            background-color: #e1e4e8;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            display: inline-flex;
             align-items: center;
-            width: fit-content;
+            min-height: 100vh;
+            margin: 0;
         }
-        .language-tag i {
-            margin-right: 8px;
+
+        .preview-container {
+            /* Conteneur principal du cadre */
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 95%; 
+            max-width: 700px; /* Taille maximale pour l'aperçu */
+            margin: 20px;
+            overflow: hidden; /* Assure que le contenu respecte les bords arrondis */
+            background-color: white;
         }
-        .description {
-            font-size: 0.95em;
-            line-height: 1.5;
-            color: #586069;
+
+        .game-preview {
+            /* L'iframe de prévisualisation */
+            width: 100%;
+            height: 400px; /* Hauteur fixe pour l'aperçu */
+            border: none; /* Supprime la bordure par défaut de l'iframe */
+            display: block;
+            background-color: #000; /* Fond noir pour les zones non chargées */
         }
-        
-        /* Language-specific colors for icons */
-        .lang-js { color: #f7df1e; }
-        .lang-php { color: #777bb4; }
-        .lang-unknown { color: #aaaaaa; }
+
+        .button-area {
+            /* Zone contenant le bouton */
+            padding: 15px;
+            text-align: center;
+            background-color: #f0f0f5;
+            border-top: 1px solid #ddd;
+        }
+
+        .test-button-link {
+            /* Lien autour du bouton */
+            display: block;
+            text-decoration: none; /* Supprime le soulignement par défaut */
+        }
+
+        .test-button {
+            /* Le bouton lui-même */
+            background-color: #007bff; /* Bleu vif */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box; /* S'assure que le padding est inclus dans la largeur */
+            transition: background-color 0.3s ease, transform 0.1s;
+        }
+
+        .test-button:hover {
+            background-color: #0056b3; /* Bleu plus foncé au survol */
+        }
+
+        .test-button:active {
+            transform: scale(0.98); /* Petit effet de clic */
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Paul-Elliot's Featured Projects</h1>
-        <div class="project-grid">
 
-            <div class="project-card">
-                <div class="project-image">
-                    <p>Placeholder for Project Screenshot Image</p>
-                </div>
-                <div class="project-content">
-                    <span class="language-tag">
-                        <i class="fab fa-js lang-js"></i> JavaScript
-                    </span>
-                    <h2>THE_CHEF</h2>
-                    <p class="description">
-                        **[Description Placeholder]** A brief, engaging summary of what this project does. E.g., "A modern, responsive recipe management application built with vanilla JavaScript, featuring meal planning and ingredient tracking."
-                    </p>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-image">
-                    <p>Placeholder for Project Screenshot Image</p>
-                </div>
-                <div class="project-content">
-                    <span class="language-tag">
-                        <i class="fab fa-php lang-php"></i> PHP
-                    </span>
-                    <h2>GameCard</h2>
-                    <p class="description">
-                        **[Description Placeholder]** Describe the core function of the GameCard repository. E.g., "A robust PHP backend for managing user game collections and displaying card details pulled from a public gaming API."
-                    </p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">
-                    <p>Placeholder for Project Screenshot Image</p>
-                </div>
-                <div class="project-content">
-                    <span class="language-tag">
-                        <i class="fab fa-js lang-js"></i> JavaScript
-                    </span>
-                    <h2>Meteo</h2>
-                    <p class="description">
-                        **[Description Placeholder]** Summary of the Meteo project. E.g., "A simple, clean weather forecast app using OpenWeatherMap API, focusing on minimal design and fast load times with asynchronous JavaScript."
-                    </p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">
-                    <p>Placeholder for Project Screenshot Image</p>
-                </div>
-                <div class="project-content">
-                    <span class="language-tag">
-                        <i class="fab fa-php lang-php"></i> PHP
-                    </span>
-                    <h2>HollywoodNews</h2>
-                    <p class="description">
-                        **[Description Placeholder]** Details for HollywoodNews. E.g., "A custom-built content management system (CMS) in PHP for managing celebrity news articles, user comments, and administrative workflows."
-                    </p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">
-                    <p>Placeholder for Project Screenshot Image</p>
-                </div>
-                <div class="project-content">
-                    <span class="language-tag">
-                        <i class="fab fa-js lang-js"></i> JavaScript
-                    </span>
-                    <h2>RickAndMarthy</h2>
-                    <p class="description">
-                        **[Description Placeholder]** Summary of the RickAndMarthy project. E.g., "A JavaScript single-page application that browses the full catalog of characters and episodes from the Rick and Morty API."
-                    </p>
-                </div>
-            </div>
+    <div class="preview-container">
+        <iframe 
+            class="game-preview" 
+            src="https://paul-elliot.github.io/RickAndMarthy/" 
+            title="Aperçu du jeu RickAndMarthy"
+            loading="lazy">
+        </iframe>
+        
+        <div class="button-area">
+            <a href="https://paul-elliot.github.io/RickAndMarthy/" target="_blank" class="test-button-link">
+                <button class="test-button">
+                    Tester mon jeu 🚀
+                </button>
+            </a>
         </div>
     </div>
-</body>
 
+</body>
 </html>
