@@ -1,5 +1,5 @@
 // Define a name for the cache (change the version number to force a refresh)
-const CACHE_NAME = 'basic-pwa-cache-v13';
+const CACHE_NAME = 'basic-pwa-cache-v15';
 
 // List of files to cache (your 'app shell')
 const urlsToCache = [

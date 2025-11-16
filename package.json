@@ -1,0 +1,20 @@
+{
+  "name": "pwa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Elliot/paul-elliot.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Paul-Elliot/paul-elliot.github.io/issues"
+  },
+  "homepage": "https://github.com/Paul-Elliot/paul-elliot.github.io#readme"
+}
